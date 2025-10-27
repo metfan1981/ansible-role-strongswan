@@ -14,6 +14,17 @@
       state: present
       update_cache: yes
 
+  - name: extra build deps for Ubuntu 24.04+
+    apt:
+      name:
+        - pkg-config
+        - libsystemd-dev
+      state: present
+      update_cache: yes
+    when:
+      - ansible_distribution == 'Ubuntu'
+      - ansible_distribution_version is version('24.04', '>=')
+
   - name: get strongswan tarball
     unarchive:
       src: 'https://download.strongswan.org/strongswan-{{ strongswan_version }}.tar.bz2'
